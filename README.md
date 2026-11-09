@@ -4,12 +4,15 @@ Et lille projekt, hvor jeg kan stille spørgsmål til mine egne studienoter. Sys
 
 Projektet er lavet for at forstå, hvordan Retrieval-Augmented Generation (RAG) fungerer i praksis, og hvad der påvirker kvaliteten af svarene.
 
+![Chat-brugerfladen](streamlit.png)
+
 ## Sådan virker det
 
 1. **Indlæsning** (`ingest.py`): PDF'erne i `data/` læses side for side og deles i overlappende tekststykker (chunks).
 2. **Embeddings**: Hvert stykke omdannes til en vektor og gemmes i ChromaDB sammen med filnavn og sidetal.
 3. **Søgning** (`ask.py`): Spørgsmålet omdannes også til en vektor, og de fire mest lignende stykker hentes frem.
 4. **Svar**: Stykkerne sendes sammen med spørgsmålet til en lokal model via Ollama, som svarer ud fra konteksten og angiver kilderne.
+5. **Brugerflade** (`app.py`): En chat i browseren bygget med Streamlit, hvor hvert svar viser de tekststykker, modellen fik at arbejde med.
 
 Alt kører lokalt. Ingen noter forlader computeren.
 
@@ -20,6 +23,7 @@ Alt kører lokalt. Ingen noter forlader computeren.
 - pypdf (tekstudtræk fra PDF)
 - Ollama med `llama3.2` (lokal sprogmodel)
 - Udviklet i Ubuntu under WSL
+- Streamlit (chat-brugerflade)
 
 ## Kom i gang
 
@@ -50,6 +54,14 @@ Eller se kun hvilke tekststykker, der bliver fundet, uden at spørge modellen:
 ```bash
 python ask.py --retrieve-only "SSE"
 ```
+
+Start chatten i browseren:
+
+```bash
+streamlit run app.py
+```
+
+Åbn derefter http://localhost:8501.
 
 ## Hvad jeg har lært
 
