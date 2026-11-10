@@ -20,6 +20,8 @@ OVERLAP = 200
 def chunk_text(text: str, size: int = CHUNK_SIZE, overlap: int = OVERLAP) -> list[str]:
     """Del tekst i overlappende bidder, så en sætning ikke bliver klippet over uden kontekst."""
     chunks = []
+    if overlap>=size:
+        raise ValueError("overlap skal være mindre end size")
     start = 0
     while start < len(text):
         chunks.append(text[start : start + size])
